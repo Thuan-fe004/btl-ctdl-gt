@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
+
 
 // Định nghĩa một nút trong danh sách liên kết đơn
 struct Node {
@@ -59,14 +59,14 @@ void removeDuplicates(Node* head) {
         return;  // Nếu danh sách rỗng, không có gì để xóa
     }
 
-    Node* current = head;
+    Node* phead = head;
 
-    while (current != NULL) {
-        Node* runner = current;
+    while (phead != NULL) {
+        Node* runner = phead;
 
         while (runner->next != NULL) {
-            // Nếu phần tử tiếp theo trùng giá trị với current, xóa nút đó
-            if (runner->next->data == current->data) {
+            // Nếu phần tử tiếp theo trùng giá trị với phead, xóa nút đó
+            if (runner->next->data == phead->data) {
                 Node* duplicate = runner->next;
                 runner->next = runner->next->next;  // Bỏ qua nút trùng
                 free(duplicate);  // Giải phóng bộ nhớ của nút trùng
@@ -75,7 +75,7 @@ void removeDuplicates(Node* head) {
             }
         }
 
-        current = current->next;
+        phead = phead->next;
     }
 }
 
