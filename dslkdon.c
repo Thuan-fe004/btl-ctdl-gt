@@ -42,18 +42,18 @@ void insert(List *l, Node *p){
 }
 //hiển thị danh sách lk đơn
 void displayList(List* l) {
-    Node* currentNode = l->pHead;
-    while (currentNode != NULL) {
-        printf("%d ", currentNode->data);
-        currentNode = currentNode->pNext;
+    Node* current = l->pHead;
+    while (current != NULL) {
+        printf("%d ", current->data);
+        current = current->pNext;
     }
 }
 //giải phóng bộ nhớ
 void freeList(List* l) {
-    Node* currentNode = l->pHead;
-    while (currentNode != NULL) {
-        Node* temp = currentNode;
-        currentNode = currentNode->pNext;
+    Node* current = l->pHead;
+    while (current != NULL) {
+        Node* temp = current;
+        current = current->pNext;
         free(temp);
     }
     l->pHead = NULL;
@@ -88,7 +88,7 @@ void removeDuplicates(List* l) {
         while (runner->pNext != NULL) {
             if (runner->pNext->data == current->data) {
                 Node* temp = runner->pNext;
-                runner->pnext = runner->pNext->pNext;
+                runner->pNext = runner->pNext->pNext;
                 free(temp);
             } else {
                 runner = runner->pNext;
