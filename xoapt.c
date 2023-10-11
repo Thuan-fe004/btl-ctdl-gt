@@ -5,7 +5,7 @@
 typedef struct tagNode {
     int data ;
     
-    struct tagNode* pnext;
+    struct tagNode* pNext;
 } Node;
 
 typedef struct tagList {
@@ -23,7 +23,7 @@ Node* CreateNode(int data){
     Node* p;
     p = (Node*)malloc(sizeof(Node));
     p->data = data;
-    p->pnext = NULL;
+    p->pNext = NULL;
     return p;
 }
 
@@ -35,7 +35,7 @@ void insert(List *l, Node *p){
        l ->pTail = p;
     }
     else{
-        l ->pTail ->pnext = p;
+        l ->pTail ->pNext = p;
         l -> pTail = p;
     }
     
@@ -45,7 +45,7 @@ void displayList(List* l) {
     Node* currentNode = l->pHead;
     while (currentNode != NULL) {
         printf("%d ", currentNode->data);
-        currentNode = currentNode->pnext;
+        currentNode = currentNode->pNext;
     }
 }
 //giải phóng bộ nhớ
@@ -53,7 +53,7 @@ void freeList(List* l) {
     Node* currentNode = l->pHead;
     while (currentNode != NULL) {
         Node* temp = currentNode;
-        currentNode = currentNode->pnext;
+        currentNode = currentNode->pNext;
         free(temp);
     }
     l->pHead = NULL;
@@ -85,16 +85,16 @@ void removeDuplicates(List* l) {
     Node* current = l->pHead;
     while (current != NULL) {
         Node* runner = current;
-        while (runner->pnext != NULL) {
-            if (runner->pnext->data == current->data) {
-                Node* temp = runner->pnext;
-                runner->pnext = runner->pnext->pnext;
+        while (runner->pNext != NULL) {
+            if (runner->pNext->data == current->data) {
+                Node* temp = runner->pNext;
+                runner->pnext = runner->pNext->pNext;
                 free(temp);
             } else {
-                runner = runner->pnext;
+                runner = runner->pNext;
             }
         }
-        current = current->pnext;
+        current = current->pNext;
     }
 }
 
