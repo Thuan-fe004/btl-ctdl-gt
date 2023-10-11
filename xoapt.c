@@ -60,7 +60,7 @@ void freeList(List* l) {
     l->pTail = NULL;
 }
 
- // nhập danh sách số kết thúc khi nhập kí tự @
+// nhập danh sách số kết thúc khi nhập kí tự @
 
 
 
@@ -82,19 +82,19 @@ void freeList(List* l) {
 
 //Xóa tất cả các phần tử có giá trị trùng nhau trong danh sách.
 void removeDuplicates(List* l) {
-    Node* currentNode = l->pHead;
-    while (currentNode != NULL) {
-        Node* compareNode = currentNode;
-        while (compareNode->pnext != NULL) {
-            if (compareNode->pnext->data == currentNode->data) {
-                Node* temp = compareNode->pnext;
-                compareNode->pnext = compareNode->pnext->pnext;
+    Node* current = l->pHead;
+    while (current != NULL) {
+        Node* runner = current;
+        while (runner->pnext != NULL) {
+            if (runner->pnext->data == current->data) {
+                Node* temp = runner->pnext;
+                runner->pnext = runner->pnext->pnext;
                 free(temp);
             } else {
-                compareNode = compareNode->pnext;
+                runner = runner->pnext;
             }
         }
-        currentNode = currentNode->pnext;
+        current = current->pnext;
     }
 }
 
