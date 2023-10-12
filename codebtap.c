@@ -65,7 +65,7 @@ void FreeList(List* l) {
 // Hàm nhập danh sách kết thúc khi nhập kí tự '@'
 void InputList(List* l) {
     char ch;
-    int x;
+    int b;
 
     printf("Nhap danh sach (nhap '@' de ket thuc):\n");
     while (1) {
@@ -75,8 +75,8 @@ void InputList(List* l) {
             break;
         }
 
-        x = atoi(&ch);
-        Node* p = CreateNode(x);
+        b = atoi(&ch);
+        Node* p = CreateNode(b);
         Insert(l, p);
     }
 }
@@ -183,46 +183,68 @@ void RemoveDuplicates(List* l) {
     }
     l->pTail = current;
 }
-
-// Hàm kiểm tra xem 3 số có tạo thành dãy số cấp số cộng không
-int IsArithmeticSequence(int a, int b, int c) {
-    return (b - a == c - b);
+// Hàm kiểm tra xem một dãy 3 số có tạo ra cấp số cộng hay số nhân không
+int isArithmeticOrGeometric(int a, int b, int c) {
+    int diff1 = b - a;
+    int diff2 = c - b;
+    if (diff1 == diff2)
+        return 1;
+    else if (a != 0 && b != 0 && c != 0 && b % a == 0 && c % b == 0 && c / b == b / a)
+        return 2;
+    else
+        return 0;
 }
 
-// Hàm kiểm tra xem 3 số có tạo thành dãy số cấp số nhân không
-int IsGeometricSequence(int a, int b, int c) {
-    return (b * b == a * c);
-}
-
-// Hàm kiểm tra xem danh sách có chứa dãy số cấp số cộng hoặc cấp số nhân không
-void CheckSequences(List* l) {
-    int countArithmetic = 0;
-    int countGeometric = 0;
+// Hàm xét dãy 3 số liên tiếp có tạo ra cấp số cộng/số nhân hay không, và số lượng cấp đó
+void checkSequences(List* l) {
     Node* current = l->pHead;
+    int count = 0;
     while (current != NULL && current->pNext != NULL && current->pNext->pNext != NULL) {
-        if (IsArithmeticSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
-            countArithmetic++;
-        }
-        if (IsGeometricSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
-            countGeometric++;
+        int result = isArithmeticOrGeometric(current->data, current->pNext->data, current->pNext->pNext->data);
+        if (result == 1) {
+            printf("%d, %d, %d tao danh sach so cong.\n", current->data, current->pNext->data, current->pNext->pNext->data);
+            count++;
+        } else if (result == 2) {
+            printf("%d, %d, %d tao danh sach so nhan.\n", current->data, current->pNext->data, current->pNext->pNext->data);
+            count++;
         }
         current = current->pNext;
     }
-
-    if (countArithmetic > 0) {
-        printf("Danh sach chua day so cap so cong.\n");
-    }
-    else {
-        printf("Danh sach khong chua day so cap so cong.\n");
-    }
-
-    if (countGeometric > 0) {
-        printf("Danh sach chua day so cap so nhan.\n");
-    }
-    else {
-        printf("Danh sach khong chua day so cap so nhan.\n");
-    }
+    if (count == 0)
+        printf("khong co day so cong hay day so nguyen.\n");
+    else
+        printf("Tong cong co %d day so cong hoac day so nhan trong danh sach.\n", count);
 }
+
+// // Hàm kiểm tra xem danh sách có chứa dãy số cấp số cộng hoặc cấp số nhân không
+// void CheckSequences(List* l) {
+//     int countArithmetic = 0;
+//     int countGeometric = 0;
+//     Node* current = l->pHead;
+//     while (current != NULL && current->pNext != NULL && current->pNext->pNext != NULL) {
+//         if (IsArithmeticSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
+//             countArithmetic++;
+//         }
+//         if (IsGeometricSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
+//             countGeometric++;
+//         }
+//         current = current->pNext;
+//     }
+
+//     if (countArithmetic > 0) {
+//         printf("Danh sach chua day so cap so cong.\n");
+//     }
+//     else {
+//         printf("Danh sach khong chua day so cap so cong.\n");
+//     }
+
+//     if (countGeometric > 0) {
+//         printf("Danh sach chua day so cap so nhan.\n");
+//     }
+//     else {
+//         printf("Danh sach khong chua day so cap so nhan.\n");
+//     }
+// }
 
 
 // Định nghĩa các hàm và struct đã được cung cấp
@@ -277,7 +299,7 @@ int main() {
                 break;
             }
             case 6: {
-                CheckSequences(&l);
+                checkSequences(&l);
                 break;
             }
             case 0: {
