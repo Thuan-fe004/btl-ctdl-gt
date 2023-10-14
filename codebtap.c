@@ -64,18 +64,18 @@ void FreeList(List* l) {
 
 // Hàm nhập danh sách kết thúc khi nhập kí tự '@'
 void InputList(List* l) {
-    char ch;
+    char input[100];
     int b;
 
     printf("Nhap danh sach (nhap '@' de ket thuc):\n");
     while (1) {
-        scanf(" %c", &ch);
+        scanf(" %c", input);
 
-        if (ch == '@') {
+        if (input[0] == '@') {
             break;
         }
 
-        b = atoi(&ch);
+        b = atoi( input);
         Node* p = CreateNode(b);
         Insert(l, p);
     }
@@ -109,8 +109,8 @@ void QuickSort(List* l, Node* left, Node* right) {
 
 // Hàm kiểm tra xem một số có phải là số chính phương hay không
 int IsPerfectSquare(int n) {
-    int root = sqrt(n);
-    return (root * root == n);
+    int c = sqrt(n);
+    return (c * c == n);
 }
 
 // Hàm liệt kê tất cả các phần tử là số chính phương trong danh sách
@@ -211,43 +211,12 @@ void checkSequences(List* l) {
         current = current->pNext;
     }
     if (count == 0)
-        printf("khong co day so cong hay day so nguyen.\n");
+        printf("khong co day so cong hay day so nhan.\n");
     else
         printf("Tong cong co %d day so cong hoac day so nhan trong danh sach.\n", count);
 }
 
-// // Hàm kiểm tra xem danh sách có chứa dãy số cấp số cộng hoặc cấp số nhân không
-// void CheckSequences(List* l) {
-//     int countArithmetic = 0;
-//     int countGeometric = 0;
-//     Node* current = l->pHead;
-//     while (current != NULL && current->pNext != NULL && current->pNext->pNext != NULL) {
-//         if (IsArithmeticSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
-//             countArithmetic++;
-//         }
-//         if (IsGeometricSequence(current->data, current->pNext->data, current->pNext->pNext->data)) {
-//             countGeometric++;
-//         }
-//         current = current->pNext;
-//     }
 
-//     if (countArithmetic > 0) {
-//         printf("Danh sach chua day so cap so cong.\n");
-//     }
-//     else {
-//         printf("Danh sach khong chua day so cap so cong.\n");
-//     }
-
-//     if (countGeometric > 0) {
-//         printf("Danh sach chua day so cap so nhan.\n");
-//     }
-//     else {
-//         printf("Danh sach khong chua day so cap so nhan.\n");
-//     }
-// }
-
-
-// Định nghĩa các hàm và struct đã được cung cấp
 
 
 int main() {
@@ -255,15 +224,17 @@ int main() {
     CreateList(&l);
     int choice;
     do {
-        printf("\nMENU:\n");
-        printf("1. Tao danh sach so (nhap @ de ket thuc)\n");
-        printf("2. Sap xep danh sach\n");
-        printf("3. Liet ke so chinh phuong\n");
-        printf("4. Xoa so nguyen to\n");
-        printf("5. Xoa cac phan tu trung nhau\n");
-        printf("6. Kiem tra cac day so lien tiep\n");
-        printf("0. Thoat\n");
+        printf("\n||----------------------------------------------MENU-------------------------------------------------||\n");
+        printf("  1.Tao danh sach so (nhap @ de ket thuc).                 ");
+        printf("  2.Sap xep danh sach theo thu tu tang dan.\n\n");
+        printf("  3.Liet ke cac so chinh phuong.                           ");
+        printf("  4.Xoa so nguyen to.\n\n");
+        printf("  5.Xoa cac phan tu trung nhau.                            ");
+        printf("  6.Kiem tra cac day so lien tiep.\n\n");
+        printf("  0.Thoat chuong trinh.\n----------------\n\n");
+        
         printf("Nhap lua chon cua ban: ");
+        
         scanf(" %d", &choice);
 
         switch (choice) {
@@ -282,17 +253,18 @@ int main() {
                 break;
             }
             case 3: {
-                printf("Cac so chinh phuong trong danh sach: ");
+                printf("Cac so chinh phuong trong danh sach la: ");
                 ListPerfectSquares(&l);
                 break;
             }
             case 4: {
                 RemovePrimes(&l);
-                printf("Danh sach sau khi xoa so nguyen to: ");
+                printf("Danh sach sau khi xoa so nguyen to la: ");
                 DisplayList(&l);
                 break;
             }
             case 5: {
+        
                 RemoveDuplicates(&l);
                 printf("Danh sach sau khi xoa cac phan tu trung nhau: ");
                 DisplayList(&l);
