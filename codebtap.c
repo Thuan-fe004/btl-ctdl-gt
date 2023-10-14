@@ -14,13 +14,13 @@ typedef struct tagList {
 } List;
 
 // Hàm tạo danh sách rỗng
-void CreateList(List* l) {
+void TaoDSRong(List* l) {
     l->pHead = NULL;
     l->pTail = NULL;
 }
 
 // Hàm tạo nút mới
-Node* CreateNode(int x) {
+Node* TaoNutMoi(int x) {
     Node* p;
     p = (Node*)malloc(sizeof(Node));
     p->data = x;
@@ -29,7 +29,7 @@ Node* CreateNode(int x) {
 }
 
 // Hàm chèn nút mới vào cuối danh sách
-void Insert(List* l, Node* p) {
+void ChenNutMoi(List* l, Node* p) {
     if (l->pHead == NULL) {
         l->pHead = p;
         l->pTail = p;
@@ -41,7 +41,7 @@ void Insert(List* l, Node* p) {
 }
 
 // Hàm hiển thị danh sách liên kết đơn
-void DisplayList(List* l) {
+void HienThiDS(List* l) {
     Node* current = l->pHead;
     while (current != NULL) {
         printf("%d ", current->data);
@@ -51,7 +51,7 @@ void DisplayList(List* l) {
 }
 
 // Hàm giải phóng bộ nhớ
-void FreeList(List* l) {
+void GiaiPhongBN(List* l) {
     Node* current = l->pHead;
     while (current != NULL) {
         Node* temp = current;
@@ -63,8 +63,8 @@ void FreeList(List* l) {
 }
 
 // Hàm nhập danh sách kết thúc khi nhập kí tự '@'
-void InputList(List* l) {
-    char input[100];
+void NhapDS(List* l) {
+    char input[1000];
     int b;
 
     printf("Nhap danh sach (nhap '@' de ket thuc):\n");
@@ -76,8 +76,8 @@ void InputList(List* l) {
         }
 
         b = atoi( input);
-        Node* p = CreateNode(b);
-        Insert(l, p);
+        Node* p = TaoNutMoi(b);
+        ChenNutMoi(l, p);
     }
 }
 
@@ -108,16 +108,16 @@ void QuickSort(List* l, Node* left, Node* right) {
 }
 
 // Hàm kiểm tra xem một số có phải là số chính phương hay không
-int IsPerfectSquare(int n) {
+int KTSoChinhPhuong(int n) {
     int c = sqrt(n);
     return (c * c == n);
 }
 
 // Hàm liệt kê tất cả các phần tử là số chính phương trong danh sách
-void ListPerfectSquares(List* l) {
+void LKSoChinhPhuong(List* l) {
     Node* current = l->pHead;
     while (current != NULL) {
-        if (IsPerfectSquare(current->data)) {
+        if (KTSoChinhPhuong(current->data)) {
             printf("%d ", current->data);
         }
         current = current->pNext;
@@ -126,7 +126,7 @@ void ListPerfectSquares(List* l) {
 }
 
 // Hàm kiểm tra xem một số có phải là số nguyên tố hay không
-int IsPrime(int n) {
+int KTSoNT(int n) {
     if (n <= 1) {
         return 0;
     }
@@ -139,11 +139,11 @@ int IsPrime(int n) {
 }
 
 // Hàm xóa tất cả các số nguyên tố trong danh sách
-void RemovePrimes(List* l) {
+void XoaSoNT(List* l) {
     Node* current = l->pHead;
     Node* previous = NULL;
     while (current != NULL) {
-        if (IsPrime(current->data)) {
+        if (KTSoNT(current->data)) {
             Node* temp = current;
             if (previous == NULL) {
                 l->pHead = current->pNext;
@@ -165,7 +165,7 @@ void RemovePrimes(List* l) {
 }
 
 // Hàm xóa tất cả các phần tử có giá trị trùng nhau trong danh sách
-void RemoveDuplicates(List* l) {
+void XoaPTTrungNhau(List* l) {
     Node* current = l->pHead;
     while (current != NULL) {
         Node* runner = current;
@@ -196,7 +196,7 @@ int kiemtraday3so(int a, int b, int c) {
 }
 
 // Hàm xét dãy 3 số liên tiếp có tạo ra cấp số cộng/số nhân hay không, và số lượng cấp đó
-void checkSequences(List* l) {
+void DuyetCapSo(List* l) {
     Node* current = l->pHead;
     int x = 0;
     int z = 0;
@@ -213,10 +213,11 @@ void checkSequences(List* l) {
     }
     if (x == 0)
         printf("khong co day so cong.\n");
+        else
+        printf("Tong cong co %d day so cong.\n", x);
     if (z ==0)
         printf("khong co day so nhan.\n");
     else
-        printf("Tong cong co %d day so cong.\n", x);
         printf("Tong cong co %d day so nhan.\n", z);
 
 }
@@ -226,7 +227,7 @@ void checkSequences(List* l) {
 
 int main() {
     List l;
-    CreateList(&l);
+    TaoDSRong(&l);
     int choice;
     do {
         printf("\n||----------------------------------------------MENU-------------------------------------------------||\n");
@@ -244,43 +245,43 @@ int main() {
 
         switch (choice) {
             case 1: {
-                InputList(&l);
+                NhapDS(&l);
 
                 printf("Danh sach vua nhap: ");
-                DisplayList(&l);
+                HienThiDS(&l);
                 break;
 
             }
             case 2: {
                 QuickSort(&l, l.pHead, l.pTail);
                 printf("Danh sach sau khi sap xep: ");
-                DisplayList(&l);
+                HienThiDS(&l);
                 break;
             }
             case 3: {
                 printf("Cac so chinh phuong trong danh sach la: ");
-                ListPerfectSquares(&l);
+                LKSoChinhPhuong(&l);
                 break;
             }
             case 4: {
-                RemovePrimes(&l);
+                XoaSoNT(&l);
                 printf("Danh sach sau khi xoa so nguyen to la: ");
-                DisplayList(&l);
+                HienThiDS(&l);
                 break;
             }
             case 5: {
         
-                RemoveDuplicates(&l);
+                XoaPTTrungNhau(&l);
                 printf("Danh sach sau khi xoa cac phan tu trung nhau: ");
-                DisplayList(&l);
+                HienThiDS(&l);
                 break;
             }
             case 6: {
-                checkSequences(&l);
+                DuyetCapSo(&l);
                 break;
             }
             case 0: {
-                FreeList(&l);
+                GiaiPhongBN(&l);
                 printf("Thoat chuong trinh.\n");
                 break;
             }
