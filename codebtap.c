@@ -69,7 +69,7 @@ void InputList(List* l) {
 
     printf("Nhap danh sach (nhap '@' de ket thuc):\n");
     while (1) {
-        scanf(" %c", input);
+        scanf(" %s", input);
 
         if (input[0] == '@') {
             break;
@@ -184,10 +184,10 @@ void RemoveDuplicates(List* l) {
     l->pTail = current;
 }
 // Hàm kiểm tra xem một dãy 3 số có tạo ra cấp số cộng hay số nhân không
-int isArithmeticOrGeometric(int a, int b, int c) {
-    int diff1 = b - a;
-    int diff2 = c - b;
-    if (diff1 == diff2)
+int kiemtraday3so(int a, int b, int c) {
+    int d1 = b - a;
+    int d2 = c - b;
+    if (d1 == d2)
         return 1;
     else if (a != 0 && b != 0 && c != 0 && b % a == 0 && c % b == 0 && c / b == b / a)
         return 2;
@@ -198,22 +198,27 @@ int isArithmeticOrGeometric(int a, int b, int c) {
 // Hàm xét dãy 3 số liên tiếp có tạo ra cấp số cộng/số nhân hay không, và số lượng cấp đó
 void checkSequences(List* l) {
     Node* current = l->pHead;
-    int count = 0;
+    int x = 0;
+    int z = 0;
     while (current != NULL && current->pNext != NULL && current->pNext->pNext != NULL) {
-        int result = isArithmeticOrGeometric(current->data, current->pNext->data, current->pNext->pNext->data);
-        if (result == 1) {
+        int y = kiemtraday3so(current->data, current->pNext->data, current->pNext->pNext->data);
+        if (y == 1) {
             printf("%d, %d, %d tao danh sach so cong.\n", current->data, current->pNext->data, current->pNext->pNext->data);
-            count++;
-        } else if (result == 2) {
+            x++;
+        } else if (y == 2) {
             printf("%d, %d, %d tao danh sach so nhan.\n", current->data, current->pNext->data, current->pNext->pNext->data);
-            count++;
+            z++;
         }
         current = current->pNext;
     }
-    if (count == 0)
-        printf("khong co day so cong hay day so nhan.\n");
+    if (x == 0)
+        printf("khong co day so cong.\n");
+    if (z ==0)
+        printf("khong co day so nhan.\n");
     else
-        printf("Tong cong co %d day so cong hoac day so nhan trong danh sach.\n", count);
+        printf("Tong cong co %d day so cong.\n", x);
+        printf("Tong cong co %d day so nhan.\n", z);
+
 }
 
 
