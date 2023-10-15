@@ -230,7 +230,7 @@ int main() {
     TaoDSRong(&l);
     int choice;
     do {
-        printf("\n||----------------------------------------------MENU-------------------------------------------------||\n");
+        printf("\n||================================================MENU================================================||\n");
         printf("  1.Tao danh sach so (nhap @ de ket thuc).                 ");
         printf("  2.Sap xep danh sach theo thu tu tang dan.\n\n");
         printf("  3.Liet ke cac so chinh phuong.                           ");
