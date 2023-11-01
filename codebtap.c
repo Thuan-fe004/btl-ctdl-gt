@@ -61,26 +61,46 @@ void GiaiPhongBN(List* l) {
     l->pHead = NULL;
     l->pTail = NULL;
 }
-
-// Hàm nhập danh sách kết thúc khi nhập kí tự '@'
+//Hàm nhập danh sách
 void NhapDS(List* l) {
     char input[1000];
     int b;
+    int count = 0;
 
     printf("Nhap danh sach (nhap '@' de ket thuc):\n");
+    scanf("%s", input);
+
+    // Kiểm tra nếu danh sách rỗng, in thông báo và trả về
+    if (input[0] == '@') {
+        printf("Danh sach rong!\n");
+        return;
+    }
+
+    // Chèn phần tử đầu tiên vào danh sách
+    b = atoi(input);
+    Node* p = TaoNutMoi(b);
+    ChenNutMoi(l, p);
+    count += 1;
+
+    // Tiếp tục chèn các phần tử tiếp theo
     while (1) {
-        scanf(" %s", input);
+        scanf("%s", input);
 
         if (input[0] == '@') {
             break;
         }
-
-        b = atoi( input);
-        Node* p = TaoNutMoi(b);
+        b = atoi(input);
+        p = TaoNutMoi(b);
         ChenNutMoi(l, p);
+        count += 1;
+    }
+
+    // Kiểm tra nếu danh sách không rỗng, in thông báo
+    if (count > 0) {
+        printf("Danh sach vua nhap:");
+        HienThiDS(l);
     }
 }
-
 
 // Hàm sắp xếp danh sách theo thứ tự tăng dần sử dụng thuật toán Quick Sort
 void QuickSort(List* l, Node* left, Node* right) {
@@ -120,6 +140,7 @@ void LKSoChinhPhuong(List* l) {
         if (KTSoChinhPhuong(current->data)) {
             printf("%d ", current->data);
         }
+       
         current = current->pNext;
     }
     printf("\n");
@@ -211,15 +232,21 @@ void DuyetCapSo(List* l) {
         }
         current = current->pNext;
     }
-    if (x == 0)
+    if (x == 0){
         printf("khong co day so cong.\n");
-        else
-        printf("Tong cong co %d day so cong.\n", x);
-    if (z ==0)
+    }
+        
+        else{
+            printf("Tong cong co %d day so cong.\n", x);
+        }
+        
+    if (z ==0){
         printf("khong co day so nhan.\n");
-    else
+    }
+        
+    else{
         printf("Tong cong co %d day so nhan.\n", z);
-
+    }
 }
 
 
@@ -247,8 +274,8 @@ int main() {
             case 1: {
                 NhapDS(&l);
 
-                printf("Danh sach vua nhap: ");
-                HienThiDS(&l);
+               
+                
                 break;
 
             }
@@ -259,6 +286,7 @@ int main() {
                 break;
             }
             case 3: {
+                
                 printf("Cac so chinh phuong trong danh sach la: ");
                 LKSoChinhPhuong(&l);
                 break;
